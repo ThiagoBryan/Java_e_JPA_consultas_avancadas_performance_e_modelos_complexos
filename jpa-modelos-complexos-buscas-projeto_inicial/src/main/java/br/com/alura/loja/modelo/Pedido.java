@@ -3,6 +3,7 @@ package br.com.alura.loja.modelo;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Locale;
 
 @Entity
@@ -18,6 +19,8 @@ public class Pedido {
     @ManyToOne
     private Cliente cliente;
 
+    @OneToMany
+    private List<ItenPedido> itenPedido;
     public Pedido() {
     }
 
