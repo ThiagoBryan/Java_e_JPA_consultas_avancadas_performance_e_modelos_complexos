@@ -5,11 +5,11 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "itens_pedidos")
-public class ItenPedido {
+public class ItemPedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "preco_unitario")
     private BigDecimal precoUnitario;
     private int quantidade;
     @ManyToOne
@@ -17,11 +17,12 @@ public class ItenPedido {
     @ManyToOne
     private Produto produto;
 
-    public ItenPedido(Long id, int quantidade, Pedido pedido, Produto produto) {
-        this.id = id;
+    public ItemPedido(int quantidade, Pedido pedido, Produto produto) {
         this.quantidade = quantidade;
         this.pedido = pedido;
         this.produto = produto;
+        this.precoUnitario = produto.getPreco();
+
     }
 
     public Long getId() {

@@ -3,6 +3,7 @@ package br.com.alura.loja.modelo;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -13,14 +14,22 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "valor_total")
     private BigDecimal valorTotal;
     private LocalDate data = LocalDate.now();
 
     @ManyToOne
     private Cliente cliente;
 
-    @OneToMany
-    private List<ItenPedido> itenPedido;
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)// CAscade tudo que acontecer em pedido vai acontecer em ItenPedido;
+    private List<ItemPedido> itens = new ArrayList<>();
+
+    public void adicionarItem(ItemPedido item){
+        item.setPedido(this);
+        this.itens.add(item);
+
+    }
+
     public Pedido() {
     }
 
