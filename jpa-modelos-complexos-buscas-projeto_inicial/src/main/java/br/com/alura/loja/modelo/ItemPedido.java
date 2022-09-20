@@ -12,9 +12,9 @@ public class ItemPedido {
     @Column(name = "preco_unitario")
     private BigDecimal precoUnitario;
     private int quantidade;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Pedido pedido;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Produto produto;
 
     public ItemPedido(int quantidade, Pedido pedido, Produto produto) {
@@ -23,6 +23,9 @@ public class ItemPedido {
         this.produto = produto;
         this.precoUnitario = produto.getPreco();
 
+    }
+
+    public ItemPedido() {
     }
 
     public Long getId() {

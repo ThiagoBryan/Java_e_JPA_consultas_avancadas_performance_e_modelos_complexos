@@ -18,11 +18,16 @@ public class Pedido {
     private BigDecimal valorTotal = BigDecimal.ZERO;
     private LocalDate data = LocalDate.now();
 
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY) // one = por padrao eager
     private Cliente cliente;
 
+    //to many LAzy
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)// CAscade tudo que acontecer em pedido vai acontecer em ItenPedido;
     private List<ItemPedido> itens = new ArrayList<>();
+
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
 
     public void adicionarItem(ItemPedido item){
         item.setPedido(this);

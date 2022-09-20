@@ -38,5 +38,11 @@ public class PedidoDao {
 		return em.createQuery(jpql, RelatorioDeVendasVo.class).getResultList();
 	}
 
+	public Pedido buscarPedidoComCliente(Long id) { //QUERY PLANEJADA
+		return em.createQuery("SELECT p FROM Pedido p JOIN FETCH p.cliente WHERE p.id = :id", Pedido.class)
+				.setParameter("id", id)				//Join FETCh para que nessa consulta volte para eager e faça o join
+				.getSingleResult();
+	}
+
 
 }
