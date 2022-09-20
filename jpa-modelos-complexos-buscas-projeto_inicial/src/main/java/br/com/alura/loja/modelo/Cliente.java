@@ -9,30 +9,24 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private String cpf;
+    @Embedded// para dizer que os atributos da classe DadosPessoais são de Cliente
+    private DadosPessoais dadosPessoais;
 
     public Cliente(String nome, String cpf) {
-        this.nome = nome;
-        this.cpf = cpf;
+        this.dadosPessoais = new DadosPessoais(nome, cpf);
+    }
+    public DadosPessoais getDadosPessoais() {
+        return dadosPessoais;
     }
 
-    public Cliente() {
+    public String getNome(){ // Método Delegade
+        return this.dadosPessoais.getNome();
+    }
+    public String getCpf(){ // Método Delegade
+        return this.dadosPessoais.getCpf();
     }
 
-    public String getNome() {
-        return nome;
-    }
+    public Cliente(){
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 }
